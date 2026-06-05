@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: tamil-audio-translator
+    runtime: python
+    buildCommand: echo "No build step needed"
+    startCommand: python server.py
+    envVars:
+      - key: PORT
+        value: 8080
