@@ -8,7 +8,6 @@ import os
 
 PORT = int(os.environ.get("PORT", 8080))
 BIND = "0.0.0.0"  # Render requires binding to all interfaces
-DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class ProxyHandler(http.server.SimpleHTTPRequestHandler):
@@ -16,6 +15,7 @@ class ProxyHandler(http.server.SimpleHTTPRequestHandler):
         super().__init__(*args, directory=DIR, **kwargs)
 
     def do_OPTIONS(self):
+        self.send_response(200)
         self._cors_headers()
         self.end_headers()
 
@@ -26,6 +26,7 @@ class ProxyHandler(http.server.SimpleHTTPRequestHandler):
             self._handle_proxy_get()
         else:
             self.send_response(404)
+            self._cors_headers()
             self.end_headers()
 
     def _handle_proxy_get(self):
@@ -84,6 +85,7 @@ class ProxyHandler(http.server.SimpleHTTPRequestHandler):
             for k, v in target_headers.items():
                 req.add_header(k, v)
 
+            # Bypass any system proxy (Zoho etc.) for outbound storage requests
             opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
 
             try:
