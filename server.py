@@ -8,6 +8,7 @@ import os
 
 PORT = int(os.environ.get("PORT", 8080))
 BIND = "0.0.0.0"  # Render requires binding to all interfaces
+DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 class ProxyHandler(http.server.SimpleHTTPRequestHandler):
