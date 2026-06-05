@@ -1,0 +1,1485 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tamil Audio to English Transcript | Sarvam AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --surface: #ffffff;
+      --surface-muted: #f8fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --accent: #0ea5e9;
+      --accent-deep: #0284c7;
+      --success: #166534;
+      --warn: #92400e;
+      --warn-bg: #fffbeb;
+      --error: #b91c1c;
+      --error-bg: #fef2f2;
+      --shadow: 0 14px 40px rgba(15, 23, 42, 0.08);
+      --radius-lg: 16px;
+      --radius-md: 12px;
+      --radius-sm: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 0% 0%, rgba(14, 165, 233, 0.08) 0%, rgba(14, 165, 233, 0) 30%),
+        radial-gradient(circle at 100% 100%, rgba(2, 132, 199, 0.07) 0%, rgba(2, 132, 199, 0) 28%),
+        var(--bg);
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .app-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      animation: riseIn 420ms ease both;
+    }
+
+    @keyframes riseIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+
+    @media (min-width: 920px) {
+      .grid {
+        grid-template-columns: minmax(340px, 1fr) minmax(440px, 1.2fr);
+      }
+    }
+
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+
+    input[type="text"],
+    input[type="file"],
+    textarea,
+    button,
+    .pill {
+      font-family: inherit;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 11px 12px;
+      font-size: 0.96rem;
+      background: var(--surface);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.16);
+    }
+
+    input[type="file"] {
+      width: 100%;
+      border: 1px dashed #cbd5e1;
+      border-radius: var(--radius-sm);
+      padding: 10px;
+      background: var(--surface-muted);
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: transform 0.1s ease, opacity 0.2s ease, background-color 0.2s ease;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+    }
+
+    button:active:not(:disabled) {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: var(--accent-deep);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: #0f172a;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #cbd5e1;
+    }
+
+    .status-wrap {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      background: #eff6ff;
+      border: 1px solid #dbeafe;
+      color: #1e3a8a;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 3px solid #93c5fd;
+      border-top-color: #1d4ed8;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      flex-shrink: 0;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .message {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      display: none;
+      line-height: 1.35;
+    }
+
+    .message.warn {
+      background: var(--warn-bg);
+      border: 1px solid #fde68a;
+      color: var(--warn);
+    }
+
+    .message.error {
+      background: var(--error-bg);
+      border: 1px solid #fecaca;
+      color: var(--error);
+    }
+
+    .small {
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface-muted);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 11px 12px;
+      list-style: none;
+      user-select: none;
+    }
+
+    details summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details summary::before {
+      content: "▸";
+      margin-right: 8px;
+      display: inline-block;
+      transition: transform 0.2s ease;
+    }
+
+    details[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .tamil-text {
+      margin: 0;
+      padding: 0 12px 12px;
+      color: #334155;
+      font-size: 0.89rem;
+      white-space: pre-wrap;
+      line-height: 1.45;
+    }
+
+    #englishOutput {
+      min-height: 230px;
+      resize: vertical;
+      font-size: 1rem;
+      line-height: 1.52;
+    }
+
+    .history-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+      max-height: 320px;
+      overflow: auto;
+    }
+
+    .history-item {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px;
+      background: #ffffff;
+      display: grid;
+      gap: 7px;
+    }
+
+    .history-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .history-time {
+      color: #334155;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .history-preview {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.35;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .footer-note {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin: 10px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <section class="card">
+      <div class="header">
+        <div>
+          <h1>Tamil Audio to English Transcript</h1>
+          <p class="subtitle">Upload or record Tamil audio, transcribe via Sarvam AI, then translate to English.</p>
+        </div>
+      </div>
+      <div class="field" style="margin-top: 14px; margin-bottom: 0;">
+        <label for="apiKeyInput">Sarvam API Key</label>
+        <input id="apiKeyInput" type="text" placeholder="Enter API key (saved locally in this browser)" autocomplete="off" spellcheck="false" />
+        <p class="small">Stored in localStorage for this browser only. Sent as <strong>api-subscription-key</strong> header.</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <h2 class="section-title">Audio Input</h2>
+
+        <div class="field">
+          <label for="audioFileInput">Upload audio file (MP3, MP4, WAV, webm)</label>
+          <input id="audioFileInput" type="file" accept=".mp3,.mp4,.wav,.webm,audio/*,video/mp4" />
+          <p id="fileMeta" class="meta">No file selected.</p>
+        </div>
+
+        <div class="field">
+          <label>Record from microphone</label>
+          <div class="button-row">
+            <button id="startRecordBtn" class="btn-secondary" type="button">Start Recording</button>
+            <button id="stopRecordBtn" class="btn-secondary" type="button" disabled>Stop Recording</button>
+          </div>
+          <p id="recordingMeta" class="meta">Not recording.</p>
+        </div>
+
+        <div class="button-row" style="margin-top: 8px;">
+          <button id="processBtn" class="btn-primary" type="button">Transcribe and Translate</button>
+          <button id="translateOnlyBtn" class="btn-secondary" type="button">Translate Tamil Text</button>
+          <button id="clearBtn" class="btn-secondary" type="button">Clear Current Result</button>
+        </div>
+
+        <div id="statusWrap" class="status-wrap" role="status" aria-live="polite">
+          <div class="spinner" aria-hidden="true"></div>
+          <div id="statusText">Working…</div>
+        </div>
+
+        <div id="warningBox" class="message warn" role="alert"></div>
+        <div id="errorBox" class="message error" role="alert"></div>
+
+        <p class="footer-note">If file size exceeds 25MB, processing may fail depending on API limits. A warning is shown before submission.</p>
+      </section>
+
+      <section class="card">
+        <h2 class="section-title">Transcript Output</h2>
+        <p id="timestampMeta" class="meta">No transcript generated yet.</p>
+
+        <details id="tamilDetails">
+          <summary>Tamil Transcript</summary>
+          <p id="tamilOutput" class="tamil-text">Tamil transcript will appear here after transcription.</p>
+        </details>
+
+        <div class="field" style="margin-bottom: 12px;">
+          <label for="englishOutput">English Translation</label>
+          <textarea id="englishOutput" readonly placeholder="English translation will appear here..."></textarea>
+        </div>
+
+        <div class="button-row">
+          <button id="copyBtn" class="btn-secondary" type="button">Copy to Clipboard</button>
+          <button id="downloadBtn" class="btn-secondary" type="button">Download as .txt</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">Recent Session History (Last 5)</h2>
+      <ul id="historyList" class="history-list"></ul>
+    </section>
+  </div>
+
+  <script>
+    const SARVAM_STT_URL = "https://api.sarvam.ai/speech-to-text";
+    const SARVAM_TRANSLATE_URL = "https://api.sarvam.ai/translate";
+    const SARVAM_STT_BATCH_INIT_URL = "https://api.sarvam.ai/speech-to-text/job/v1";
+    const SARVAM_STT_BATCH_UPLOAD_URL = "https://api.sarvam.ai/speech-to-text/job/v1/upload-files";
+    const SARVAM_STT_BATCH_DOWNLOAD_URL = "https://api.sarvam.ai/speech-to-text/job/v1/download-files";
+    const STORAGE_API_KEY = "sarvam_api_key";
+    const STORAGE_HISTORY = "sarvam_transcript_history";
+    const MAX_HISTORY = 5;
+    const MAX_WARN_BYTES = 25 * 1024 * 1024;
+    const MAX_REST_DURATION_SECONDS = 30;
+    const BATCH_MAX_DURATION_SECONDS = 60 * 60;
+    const BATCH_POLL_INTERVAL_MS = 5000;
+    const BATCH_POLL_TIMEOUT_MS = 15 * 60 * 1000;
+    const ALLOWED_STT_MIME_TYPES = new Set([
+      "audio/mpeg",
+      "audio/mp3",
+      "audio/mpeg3",
+      "audio/x-mpeg-3",
+      "audio/x-mp3",
+      "audio/wav",
+      "audio/x-wav",
+      "audio/wave",
+      "audio/pcm_s16le",
+      "audio/l16",
+      "audio/raw",
+      "application/octet-stream",
+      "audio/aac",
+      "audio/x-aac",
+      "audio/aiff",
+      "audio/x-aiff",
+      "audio/ogg",
+      "audio/opus",
+      "audio/flac",
+      "audio/x-flac",
+      "audio/mp4",
+      "audio/x-m4a",
+      "audio/amr",
+      "audio/x-ms-wma",
+      "audio/webm",
+      "video/webm"
+    ]);
+
+    const apiKeyInput = document.getElementById("apiKeyInput");
+    const audioFileInput = document.getElementById("audioFileInput");
+    const fileMeta = document.getElementById("fileMeta");
+    const recordingMeta = document.getElementById("recordingMeta");
+    const startRecordBtn = document.getElementById("startRecordBtn");
+    const stopRecordBtn = document.getElementById("stopRecordBtn");
+    const processBtn = document.getElementById("processBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const statusWrap = document.getElementById("statusWrap");
+    const statusText = document.getElementById("statusText");
+    const warningBox = document.getElementById("warningBox");
+    const errorBox = document.getElementById("errorBox");
+    const tamilDetails = document.getElementById("tamilDetails");
+    const tamilOutput = document.getElementById("tamilOutput");
+    const englishOutput = document.getElementById("englishOutput");
+    const timestampMeta = document.getElementById("timestampMeta");
+    const copyBtn = document.getElementById("copyBtn");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const translateOnlyBtn = document.getElementById("translateOnlyBtn");
+
+    let selectedAudioFile = null;
+    let selectedAudioDurationSeconds = null;
+    let mediaRecorder = null;
+    let mediaStream = null;
+    let recordedChunks = [];
+    let historyItems = [];
+
+    init();
+
+    function init() {
+      loadStoredApiKey();
+      loadHistory();
+      bindEvents();
+      renderHistory();
+
+      if (window.location.protocol === "file:") {
+        showWarning("You opened this app using file://. Browser security may block API calls with 'Failed to fetch'. Run a local server and open via http://localhost instead.");
+      }
+    }
+
+    function bindEvents() {
+      apiKeyInput.addEventListener("input", () => {
+        localStorage.setItem(STORAGE_API_KEY, apiKeyInput.value.trim());
+      });
+
+      audioFileInput.addEventListener("change", (event) => {
+        const file = event.target.files && event.target.files[0] ? event.target.files[0] : null;
+        setSelectedFile(file, "uploaded");
+      });
+
+      startRecordBtn.addEventListener("click", startRecording);
+      stopRecordBtn.addEventListener("click", stopRecording);
+      translateOnlyBtn.addEventListener("click", handleTranslateOnly);
+      processBtn.addEventListener("click", handleProcess);
+      clearBtn.addEventListener("click", clearCurrentResult);
+      copyBtn.addEventListener("click", handleCopy);
+      downloadBtn.addEventListener("click", handleDownload);
+    }
+
+    function loadStoredApiKey() {
+      const savedKey = localStorage.getItem(STORAGE_API_KEY);
+      if (savedKey) {
+        apiKeyInput.value = savedKey;
+      }
+    }
+
+    function loadHistory() {
+      try {
+        const raw = localStorage.getItem(STORAGE_HISTORY);
+        historyItems = raw ? JSON.parse(raw) : [];
+        if (!Array.isArray(historyItems)) {
+          historyItems = [];
+        }
+      } catch (error) {
+        historyItems = [];
+      }
+    }
+
+    function saveHistory() {
+      localStorage.setItem(STORAGE_HISTORY, JSON.stringify(historyItems.slice(0, MAX_HISTORY)));
+    }
+
+    function renderHistory() {
+      historyList.innerHTML = "";
+
+      if (!historyItems.length) {
+        const empty = document.createElement("li");
+        empty.className = "history-item";
+        empty.textContent = "No transcript history yet.";
+        historyList.appendChild(empty);
+        return;
+      }
+
+      historyItems.forEach((item) => {
+        const li = document.createElement("li");
+        li.className = "history-item";
+
+        const top = document.createElement("div");
+        top.className = "history-item-top";
+
+        const time = document.createElement("span");
+        time.className = "history-time";
+        time.textContent = item.timestamp;
+
+        const useBtn = document.createElement("button");
+        useBtn.className = "btn-secondary";
+        useBtn.type = "button";
+        useBtn.textContent = "Load";
+        useBtn.addEventListener("click", () => loadHistoryItem(item.id));
+
+        top.appendChild(time);
+        top.appendChild(useBtn);
+
+        const fileInfo = document.createElement("p");
+        fileInfo.className = "history-preview";
+        fileInfo.textContent = "File: " + (item.fileName || "Recorded audio");
+
+        const preview = document.createElement("p");
+        preview.className = "history-preview";
+        preview.textContent = item.english || "(No English text)";
+
+        li.appendChild(top);
+        li.appendChild(fileInfo);
+        li.appendChild(preview);
+        historyList.appendChild(li);
+      });
+    }
+
+    function loadHistoryItem(id) {
+      const item = historyItems.find((entry) => entry.id === id);
+      if (!item) return;
+
+      tamilOutput.textContent = item.tamil || "";
+      englishOutput.value = item.english || "";
+      timestampMeta.textContent = "Generated: " + item.timestamp;
+      tamilDetails.open = true;
+      clearMessages();
+    }
+
+    function addToHistory(entry) {
+      historyItems.unshift(entry);
+      historyItems = historyItems.slice(0, MAX_HISTORY);
+      saveHistory();
+      renderHistory();
+    }
+
+    function setSelectedFile(file, source) {
+      const preparedFile = normalizeAudioFileForSarvam(file);
+      selectedAudioFile = preparedFile;
+      selectedAudioDurationSeconds = null;
+      clearMessages();
+
+      if (!preparedFile) {
+        fileMeta.textContent = "No file selected.";
+        if (source === "uploaded") {
+          recordingMeta.textContent = "Not recording.";
+        }
+        return;
+      }
+
+      const fileSizeText = formatBytes(preparedFile.size);
+      const origin = source === "recorded" ? "Recorded" : "Uploaded";
+      const mime = preparedFile.type || "unknown";
+      fileMeta.textContent = origin + " file: " + preparedFile.name + " (" + fileSizeText + ", " + mime + ")";
+      if (preparedFile.size > MAX_WARN_BYTES) {
+        showWarning("This audio file is larger than 25MB. Sarvam STT may reject it or take longer to process.");
+      }
+
+      readAudioDurationSeconds(preparedFile)
+        .then((seconds) => {
+          selectedAudioDurationSeconds = seconds;
+          fileMeta.textContent =
+            origin +
+            " file: " +
+            preparedFile.name +
+            " (" +
+            fileSizeText +
+            ", " +
+            mime +
+            ", " +
+            formatDuration(seconds) +
+            ")";
+
+          if (seconds > MAX_REST_DURATION_SECONDS) {
+            showWarning("Audio duration is over 30 seconds. This app will use Sarvam Batch STT automatically.");
+          }
+        })
+        .catch(() => {
+          selectedAudioDurationSeconds = null;
+        });
+    }
+
+    function readAudioDurationSeconds(file) {
+      return new Promise((resolve, reject) => {
+        const url = URL.createObjectURL(file);
+        const audio = document.createElement("audio");
+        audio.preload = "metadata";
+
+        audio.onloadedmetadata = () => {
+          const seconds = Number(audio.duration);
+          URL.revokeObjectURL(url);
+          if (Number.isFinite(seconds) && seconds > 0) {
+            resolve(seconds);
+          } else {
+            reject(new Error("Duration unavailable"));
+          }
+        };
+
+        audio.onerror = () => {
+          URL.revokeObjectURL(url);
+          reject(new Error("Failed to read duration"));
+        };
+
+        audio.src = url;
+      });
+    }
+
+    function formatDuration(seconds) {
+      if (!Number.isFinite(seconds) || seconds <= 0) {
+        return "unknown duration";
+      }
+      const whole = Math.round(seconds);
+      const mins = Math.floor(whole / 60);
+      const secs = whole % 60;
+      return mins + ":" + String(secs).padStart(2, "0");
+    }
+
+    function normalizeAudioFileForSarvam(file) {
+      if (!file) return null;
+
+      const lowerName = file.name.toLowerCase();
+      if (file.type === "video/mp4" && lowerName.endsWith(".mp4")) {
+        showWarning("MP4 was detected as video/mp4. Converting upload MIME to audio/mp4 for Sarvam STT compatibility.");
+        return new File([file], file.name, {
+          type: "audio/mp4",
+          lastModified: file.lastModified
+        });
+      }
+
+      return file;
+    }
+
+    function isAllowedMimeType(file) {
+      if (!file) return false;
+      if (!file.type) return true;
+      return ALLOWED_STT_MIME_TYPES.has(file.type);
+    }
+
+    async function startRecording() {
+      clearMessages();
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        showError("Microphone recording is not supported in this browser.");
+        return;
+      }
+
+      try {
+        mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recordedChunks = [];
+
+        const mimeType = getBestRecordingMimeType();
+        mediaRecorder = mimeType ? new MediaRecorder(mediaStream, { mimeType }) : new MediaRecorder(mediaStream);
+
+        mediaRecorder.ondataavailable = (event) => {
+          if (event.data && event.data.size > 0) {
+            recordedChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          const actualMimeType = mediaRecorder && mediaRecorder.mimeType ? mediaRecorder.mimeType : "audio/webm";
+          const extension = actualMimeType.includes("wav") ? "wav" : "webm";
+          const blob = new Blob(recordedChunks, { type: actualMimeType });
+          const fileName = "recording-" + Date.now() + "." + extension;
+          const file = new File([blob], fileName, { type: actualMimeType });
+          setSelectedFile(file, "recorded");
+          recordingMeta.textContent = "Recording captured as " + fileName + ".";
+          stopMediaTracks();
+        };
+
+        mediaRecorder.onerror = () => {
+          showError("Recording failed. Please try again.");
+          stopMediaTracks();
+        };
+
+        mediaRecorder.start();
+        startRecordBtn.disabled = true;
+        stopRecordBtn.disabled = false;
+        recordingMeta.textContent = "Recording in progress…";
+      } catch (error) {
+        showError("Could not access microphone. Permission may be denied.");
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== "inactive") {
+        mediaRecorder.stop();
+      }
+      startRecordBtn.disabled = false;
+      stopRecordBtn.disabled = true;
+    }
+
+    function stopMediaTracks() {
+      if (mediaStream) {
+        mediaStream.getTracks().forEach((track) => track.stop());
+      }
+      mediaStream = null;
+    }
+
+    function getBestRecordingMimeType() {
+      const preferred = ["audio/webm;codecs=opus", "audio/webm", "audio/wav"];
+      for (const type of preferred) {
+        if (window.MediaRecorder && MediaRecorder.isTypeSupported(type)) {
+          return type;
+        }
+      }
+      return "";
+    }
+
+    async function handleTranslateOnly() {
+      clearMessages();
+
+      const apiKey = apiKeyInput.value.trim();
+      if (!apiKey) {
+        showError("Please enter your Sarvam API key.");
+        return;
+      }
+
+      const tamilText = tamilOutput.textContent.trim();
+      if (!tamilText || tamilText === "Tamil transcript will appear here after transcription.") {
+        showError("No Tamil transcript found. Please transcribe audio first.");
+        return;
+      }
+
+      setWorking(true, "Translating to English…");
+      try {
+        const englishText = await translateTamilToEnglish(tamilText, apiKey);
+        if (!englishText || !englishText.trim()) {
+          throw new Error("Translation succeeded but no English text was returned.");
+        }
+        englishOutput.value = englishText;
+        const generatedAt = new Date().toLocaleString();
+        timestampMeta.textContent = "Generated: " + generatedAt;
+      } catch (error) {
+        showError(error instanceof Error ? error.message : "Unknown error during translation.");
+      } finally {
+        setWorking(false, "");
+      }
+    }
+
+    async function handleProcess() {
+      clearMessages();
+
+      const apiKey = apiKeyInput.value.trim();
+      if (!apiKey) {
+        showError("Please enter your Sarvam API key.");
+        return;
+      }
+
+      if (!selectedAudioFile) {
+        showError("Please upload or record an audio file first.");
+        return;
+      }
+
+      if (!isAllowedMimeType(selectedAudioFile)) {
+        const mime = selectedAudioFile.type || "unknown";
+        showError("Unsupported audio MIME type for Sarvam STT: " + mime + ". Try WAV, MP3, WEBM, or MP4 audio.");
+        return;
+      }
+
+      if (
+        Number.isFinite(selectedAudioDurationSeconds) &&
+        selectedAudioDurationSeconds > BATCH_MAX_DURATION_SECONDS
+      ) {
+        showError("Audio duration exceeds 1 hour. Sarvam Batch STT supports files up to 1 hour.");
+        return;
+      }
+
+      if (selectedAudioFile.size > MAX_WARN_BYTES) {
+        showWarning("Your file is larger than 25MB. Attempting upload anyway.");
+      }
+
+      setWorking(true, "Preparing transcription…");
+
+      try {
+        const tamilText = await transcribeTamilAudioSmart(selectedAudioFile, apiKey);
+        if (!tamilText || !tamilText.trim()) {
+          throw new Error("Transcription succeeded but no Tamil text was found in the response.");
+        }
+
+        tamilOutput.textContent = tamilText;
+        tamilDetails.open = true;
+
+        setWorking(true, "Translating to English…");
+        const englishText = await translateTamilToEnglish(tamilText, apiKey);
+        if (!englishText || !englishText.trim()) {
+          throw new Error("Translation succeeded but no English text was found in the response.");
+        }
+
+        englishOutput.value = englishText;
+
+        const generatedAt = new Date().toLocaleString();
+        timestampMeta.textContent = "Generated: " + generatedAt;
+
+        addToHistory({
+          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 8),
+          timestamp: generatedAt,
+          fileName: selectedAudioFile.name,
+          tamil: tamilText,
+          english: englishText
+        });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "Unknown error during processing.";
+        showError(message);
+      } finally {
+        setWorking(false, "");
+      }
+    }
+
+    async function transcribeTamilAudioSmart(file, apiKey) {
+      const shouldUseBatch =
+        Number.isFinite(selectedAudioDurationSeconds) &&
+        selectedAudioDurationSeconds > MAX_REST_DURATION_SECONDS;
+
+      if (shouldUseBatch) {
+        setWorking(true, "Submitting batch transcription job…");
+        return transcribeTamilAudioBatch(file, apiKey);
+      }
+
+      setWorking(true, "Transcribing Tamil audio…");
+      try {
+        return await transcribeTamilAudio(file, apiKey);
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "";
+        const lower = message.toLowerCase();
+        const exceededRestLimit =
+          lower.includes("maximum limit of 30 seconds") ||
+          lower.includes("use the batch api for longer audio");
+
+        if (!exceededRestLimit) {
+          throw error;
+        }
+
+        showWarning("Audio exceeded REST STT duration. Switching to Batch STT automatically.");
+        setWorking(true, "Submitting batch transcription job…");
+        return transcribeTamilAudioBatch(file, apiKey);
+      }
+    }
+
+    async function transcribeTamilAudioBatch(file, apiKey) {
+      const jobId = await createBatchJob(apiKey);
+
+      setWorking(true, "Uploading audio to batch job…");
+      await uploadFileToBatchJob(jobId, file, apiKey);
+
+      setWorking(true, "Starting batch transcription…");
+      await startBatchJob(jobId, apiKey);
+
+      setWorking(true, "Waiting for batch completion…");
+      const finalStatus = await waitForBatchCompletion(jobId, apiKey);
+
+      const outputFiles = getBatchOutputFiles(finalStatus);
+      if (!outputFiles.length) {
+        throw new Error("Batch STT completed but no output files were found.");
+      }
+
+      setWorking(true, "Downloading batch transcript…");
+      const outputPayload = await downloadBatchOutputJson(jobId, outputFiles[0], apiKey);
+
+      const transcript = extractTranscript(outputPayload);
+      if (!transcript) {
+        throw new Error("Batch STT completed but transcript text was not found in output JSON.");
+      }
+
+      return transcript;
+    }
+
+    async function createBatchJob(apiKey) {
+      const bodies = [
+        {
+          job_parameters: {
+            model: "saaras:v3",
+            mode: "transcribe",
+            language_code: "ta-IN"
+          }
+        },
+        {
+          model: "saaras:v3",
+          mode: "transcribe",
+          language_code: "ta-IN"
+        }
+      ];
+
+      let lastError = "HTTP 400";
+
+      for (const body of bodies) {
+        const response = await safeFetch(SARVAM_STT_BATCH_INIT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-subscription-key": apiKey
+          },
+          body: JSON.stringify(body)
+        }, "Batch init request");
+
+        const payload = await parseJsonSafely(response);
+        if (response.ok) {
+          const jobId = pick(payload, ["job_id"]) || pick(payload, ["id"]);
+          if (typeof jobId === "string" && jobId.trim()) {
+            return jobId;
+          }
+          throw new Error("Batch init succeeded but job_id is missing.");
+        }
+
+        lastError = extractErrorMessage(payload, response.status);
+      }
+
+      throw new Error("Batch init failed: " + lastError);
+    }
+
+    async function uploadFileToBatchJob(jobId, file, apiKey) {
+      const linksResponse = await safeFetch(SARVAM_STT_BATCH_UPLOAD_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "api-subscription-key": apiKey
+        },
+        body: JSON.stringify({
+          job_id: jobId,
+          files: [file.name]
+        })
+      }, "Batch upload-link request");
+
+      const linksPayload = await parseJsonSafely(linksResponse);
+      if (!linksResponse.ok) {
+        throw new Error("Batch upload-link request failed: " + extractErrorMessage(linksPayload, linksResponse.status));
+      }
+
+      const uploadUrls = pick(linksPayload, ["upload_urls"]);
+      const entry =
+        (uploadUrls && uploadUrls[file.name]) ||
+        (uploadUrls && Object.values(uploadUrls)[0]) ||
+        null;
+
+      const uploadUrl = pick(entry, ["file_url"]);
+      if (!uploadUrl) {
+        throw new Error("Batch upload-link response missing file_url.");
+      }
+
+      const signedHeaders = pick(entry, ["file_metadata"]);
+      const uploadHeaders = {};
+      if (signedHeaders && typeof signedHeaders === "object") {
+        for (const [key, value] of Object.entries(signedHeaders)) {
+          if (typeof value === "string" && value) {
+            uploadHeaders[key] = value;
+          }
+        }
+      }
+
+      if (!uploadHeaders["Content-Type"] && !uploadHeaders["content-type"]) {
+        uploadHeaders["Content-Type"] = file.type || "application/octet-stream";
+      }
+
+      // Azure Blob Storage requires this header for block blob uploads
+      if (!uploadHeaders["x-ms-blob-type"]) {
+        uploadHeaders["x-ms-blob-type"] = "BlockBlob";
+      }
+
+      const uploadResponse = await proxyPut(uploadUrl, uploadHeaders, file);
+
+      if (!uploadResponse.ok) {
+        const raw = await uploadResponse.text();
+        throw new Error("Batch file upload failed: HTTP " + uploadResponse.status + (raw ? " - " + raw.slice(0, 300) : ""));
+      }
+    }
+
+    async function startBatchJob(jobId, apiKey) {
+      const response = await safeFetch(
+        "https://api.sarvam.ai/speech-to-text/job/v1/" + encodeURIComponent(jobId) + "/start",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-subscription-key": apiKey
+          },
+          body: "{}"
+        },
+        "Batch start request"
+      );
+
+      const payload = await parseJsonSafely(response);
+      if (!response.ok) {
+        throw new Error("Batch start failed: " + extractErrorMessage(payload, response.status));
+      }
+    }
+
+    async function waitForBatchCompletion(jobId, apiKey) {
+      const startedAt = Date.now();
+
+      while (Date.now() - startedAt < BATCH_POLL_TIMEOUT_MS) {
+        const response = await safeFetch(
+          "https://api.sarvam.ai/speech-to-text/job/v1/" + encodeURIComponent(jobId) + "/status",
+          {
+            method: "GET",
+            headers: {
+              "api-subscription-key": apiKey
+            }
+          },
+          "Batch status request"
+        );
+
+        const payload = await parseJsonSafely(response);
+        if (!response.ok) {
+          throw new Error("Batch status check failed: " + extractErrorMessage(payload, response.status));
+        }
+
+        const state = String(pick(payload, ["job_state"]) || "").toLowerCase();
+        const elapsedSec = Math.round((Date.now() - startedAt) / 1000);
+        const elapsedMin = Math.floor(elapsedSec / 60);
+        const elapsedDisplay = elapsedMin > 0
+          ? elapsedMin + "m " + (elapsedSec % 60) + "s"
+          : elapsedSec + "s";
+        setWorking(true, "Batch job " + (state || "processing") + "… (" + elapsedDisplay + " elapsed — Sarvam is processing your audio, please wait)");
+
+        if (state === "completed" || state === "partiallycompleted") {
+          return payload;
+        }
+
+        if (state === "failed") {
+          const errorMessage =
+            pick(payload, ["error_message"]) ||
+            pick(payload, ["job_details", 0, "error_message"]) ||
+            "Batch transcription failed.";
+          throw new Error(String(errorMessage));
+        }
+
+        await delay(BATCH_POLL_INTERVAL_MS);
+      }
+
+      throw new Error("Batch transcription timed out while waiting for completion.");
+    }
+
+    function getBatchOutputFiles(statusPayload) {
+      const details = pick(statusPayload, ["job_details"]);
+      if (!Array.isArray(details)) return [];
+
+      const files = [];
+      for (const item of details) {
+        const outputs = item && Array.isArray(item.outputs) ? item.outputs : [];
+        for (const out of outputs) {
+          if (out && typeof out.file_name === "string" && out.file_name.trim()) {
+            files.push(out.file_name);
+          }
+        }
+      }
+
+      return files;
+    }
+
+    async function downloadBatchOutputJson(jobId, outputFileName, apiKey) {
+      const linksResponse = await safeFetch(SARVAM_STT_BATCH_DOWNLOAD_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "api-subscription-key": apiKey
+        },
+        body: JSON.stringify({
+          job_id: jobId,
+          files: [outputFileName]
+        })
+      }, "Batch download-link request");
+
+      const linksPayload = await parseJsonSafely(linksResponse);
+      if (!linksResponse.ok) {
+        throw new Error("Batch download-link request failed: " + extractErrorMessage(linksPayload, linksResponse.status));
+      }
+
+      const downloadUrls = pick(linksPayload, ["download_urls"]);
+      const entry =
+        (downloadUrls && downloadUrls[outputFileName]) ||
+        (downloadUrls && Object.values(downloadUrls)[0]) ||
+        null;
+
+      const fileUrl = pick(entry, ["file_url"]);
+      if (!fileUrl) {
+        throw new Error("Batch download-link response missing file_url.");
+      }
+
+      const fileResponse = await proxyGet(fileUrl, "Batch transcript file download");
+      if (!fileResponse.ok) {
+        throw new Error("Failed to fetch batch transcript file: HTTP " + fileResponse.status);
+      }
+
+      const text = await fileResponse.text();
+      try {
+        return JSON.parse(text);
+      } catch (error) {
+        throw new Error("Batch output file was not valid JSON.");
+      }
+    }
+
+    function extractTranscript(payload) {
+      const transcript =
+        pick(payload, ["transcript"]) ||
+        pick(payload, ["text"]) ||
+        pick(payload, ["data", "transcript"]) ||
+        pick(payload, ["data", "text"]) ||
+        pick(payload, ["results", 0, "transcript"]) ||
+        pick(payload, ["results", 0, "text"]);
+
+      return typeof transcript === "string" ? transcript : "";
+    }
+
+    function delay(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    async function transcribeTamilAudio(file, apiKey) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("model", "saaras:v3");
+      formData.append("mode", "transcribe");
+      formData.append("language_code", "ta-IN");
+
+      const response = await safeFetch(SARVAM_STT_URL, {
+        method: "POST",
+        headers: {
+          "api-subscription-key": apiKey
+        },
+        body: formData
+      }, "Speech-to-text request");
+
+      const payload = await parseJsonSafely(response);
+
+      if (!response.ok) {
+        const base = "STT API failed: " + extractErrorMessage(payload, response.status);
+        const detail = extractErrorMessage(payload, response.status);
+        const detailLc = String(detail).toLowerCase();
+        const isMalformedRequestHint =
+          response.status === 400 &&
+          (
+            detailLc.includes("invalid_request_error") ||
+            detailLc.includes("missing required") ||
+            detailLc.includes("malformed")
+          );
+
+        if (isMalformedRequestHint) {
+          throw new Error(base + " (Request may be malformed. This app now sends model=saaras:v3 and mode=transcribe.)");
+        }
+        throw new Error(base);
+      }
+
+      return extractTranscript(payload);
+    }
+
+    const TRANSLATE_CHUNK_SIZE = 900;
+
+    function splitIntoChunks(text, maxLen) {
+      const chunks = [];
+      let start = 0;
+      while (start < text.length) {
+        let end = start + maxLen;
+        if (end < text.length) {
+          // Try to break at sentence boundary (. or newline)
+          const breakAt = Math.max(
+            text.lastIndexOf(".", end),
+            text.lastIndexOf("\n", end)
+          );
+          if (breakAt > start) end = breakAt + 1;
+        }
+        chunks.push(text.slice(start, end).trim());
+        start = end;
+      }
+      return chunks.filter(c => c.length > 0);
+    }
+
+    async function translateTamilToEnglish(tamilText, apiKey) {
+      const chunks = splitIntoChunks(tamilText, TRANSLATE_CHUNK_SIZE);
+      const translations = [];
+
+      for (let i = 0; i < chunks.length; i++) {
+        if (chunks.length > 1) {
+          setWorking(true, "Translating chunk " + (i + 1) + " of " + chunks.length + "…");
+        }
+
+        const body = {
+          input: chunks[i],
+          source_language_code: "ta-IN",
+          target_language_code: "en-IN"
+        };
+
+        const response = await safeFetch(SARVAM_TRANSLATE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "api-subscription-key": apiKey
+          },
+          body: JSON.stringify(body)
+        }, "Translate request");
+
+        const payload = await parseJsonSafely(response);
+
+        if (!response.ok) {
+          throw new Error("Translate API failed: " + extractErrorMessage(payload, response.status));
+        }
+
+        const translation =
+          pick(payload, ["translated_text"]) ||
+          pick(payload, ["translation"]) ||
+          pick(payload, ["output"]) ||
+          pick(payload, ["data", "translated_text"]) ||
+          pick(payload, ["data", "translation"]);
+
+        if (typeof translation === "string" && translation.trim()) {
+          translations.push(translation.trim());
+        }
+      }
+
+      return translations.join(" ");
+    }
+
+    async function parseJsonSafely(response) {
+      const contentType = response.headers.get("content-type") || "";
+      if (!contentType.includes("application/json")) {
+        const text = await response.text();
+        return { raw: text };
+      }
+
+      try {
+        return await response.json();
+      } catch (error) {
+        return {};
+      }
+    }
+
+    async function proxyGet(url, contextLabel) {
+      try {
+        const response = await fetch("/proxy-get", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ url })
+        });
+        const result = await response.json();
+        return {
+          ok: result.ok,
+          status: result.status,
+          text: async () => result.body || ""
+        };
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : String(error);
+        throw new Error(contextLabel + " failed to fetch. Details: " + detail);
+      }
+    }
+
+    async function proxyPut(url, headers, file) {
+      try {
+        const response = await fetch("/proxy-put", {
+          method: "POST",
+          headers: {
+            "X-Target-URL": url,
+            "X-Target-Headers": JSON.stringify(headers),
+            "Content-Type": file.type || "application/octet-stream"
+          },
+          body: file
+        });
+        const result = await response.json();
+        return {
+          ok: result.ok,
+          status: result.status,
+          text: async () => result.body || ""
+        };
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : String(error);
+        throw new Error("Batch file upload to storage failed to fetch. Details: " + detail);
+      }
+    }
+
+    async function safeFetch(url, options, contextLabel) {
+      try {
+        return await fetch(url, options);
+      } catch (error) {
+        const detail = error instanceof Error ? error.message : String(error);
+        throw new Error(
+          contextLabel +
+          " failed to fetch. This is usually a network or CORS issue. Open this app via http://localhost (not file://), verify internet access, and retry. Details: " +
+          detail
+        );
+      }
+    }
+
+    function extractErrorMessage(payload, status) {
+      if (!payload) return "HTTP " + status;
+
+      const direct =
+        pick(payload, ["error", "message"]) ||
+        pick(payload, ["error", "code"]) ||
+        pick(payload, ["error", "request_id"]) ||
+        pick(payload, ["message"]) ||
+        pick(payload, ["error"]) ||
+        pick(payload, ["detail"]) ||
+        pick(payload, ["raw"]);
+
+      if (typeof direct === "string" && direct.trim()) {
+        return direct;
+      }
+
+      return "HTTP " + status;
+    }
+
+    function pick(obj, path) {
+      return path.reduce((acc, key) => (acc && Object.prototype.hasOwnProperty.call(acc, key) ? acc[key] : undefined), obj);
+    }
+
+    function clearCurrentResult() {
+      tamilOutput.textContent = "Tamil transcript will appear here after transcription.";
+      englishOutput.value = "";
+      timestampMeta.textContent = "No transcript generated yet.";
+      tamilDetails.open = false;
+      clearMessages();
+    }
+
+    async function handleCopy() {
+      clearMessages();
+      const text = englishOutput.value.trim();
+      if (!text) {
+        showError("No English transcript to copy.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(text);
+        showWarning("Copied English transcript to clipboard.");
+      } catch (error) {
+        showError("Clipboard copy failed. Your browser may block clipboard access on this page.");
+      }
+    }
+
+    function handleDownload() {
+      clearMessages();
+      const text = englishOutput.value.trim();
+      if (!text) {
+        showError("No English transcript to download.");
+        return;
+      }
+
+      const timestamp = new Date().toISOString().replace(/[.:]/g, "-");
+      const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "english-transcript-" + timestamp + ".txt";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function setWorking(isWorking, message) {
+      processBtn.disabled = isWorking;
+      startRecordBtn.disabled = isWorking || (mediaRecorder && mediaRecorder.state === "recording");
+      stopRecordBtn.disabled = !isWorking && !(mediaRecorder && mediaRecorder.state === "recording");
+
+      if (isWorking) {
+        statusText.textContent = message || "Working…";
+        statusWrap.style.display = "flex";
+      } else {
+        statusWrap.style.display = "none";
+      }
+    }
+
+    function showWarning(message) {
+      warningBox.style.display = "block";
+      warningBox.textContent = message;
+    }
+
+    function showError(message) {
+      errorBox.style.display = "block";
+      errorBox.textContent = message;
+    }
+
+    function clearMessages() {
+      warningBox.style.display = "none";
+      warningBox.textContent = "";
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes && bytes !== 0) return "-";
+      if (bytes === 0) return "0 B";
+      const sizes = ["B", "KB", "MB", "GB"];
+      const i = Math.floor(Math.log(bytes) / Math.log(1024));
+      const value = bytes / Math.pow(1024, i);
+      return value.toFixed(value >= 10 || i === 0 ? 0 : 1) + " " + sizes[i];
+    }
+  </script>
+</body>
+</html>
