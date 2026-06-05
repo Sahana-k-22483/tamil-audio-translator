@@ -441,6 +441,7 @@
   </div>
 
   <script>
+    const PROXY_BASE = "https://tamil-audio-translator.onrender.com";
     const SARVAM_STT_URL = "https://api.sarvam.ai/speech-to-text";
     const SARVAM_TRANSLATE_URL = "https://api.sarvam.ai/translate";
     const SARVAM_STT_BATCH_INIT_URL = "https://api.sarvam.ai/speech-to-text/job/v1";
@@ -1320,7 +1321,7 @@
 
     async function proxyGet(url, contextLabel) {
       try {
-        const response = await fetch("/proxy-get", {
+        const response = await fetch(PROXY_BASE + "/proxy-get", {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -1341,7 +1342,7 @@
 
     async function proxyPut(url, headers, file) {
       try {
-        const response = await fetch("/proxy-put", {
+        const response = await fetch(PROXY_BASE + "/proxy-put", {
           method: "POST",
           headers: {
             "X-Target-URL": url,
